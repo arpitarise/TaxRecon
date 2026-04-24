@@ -35,6 +35,7 @@ th { position: sticky; top: 0; z-index: 10; }
 <svg class="animate-spin h-14 w-14 text-blue-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
 <h2 class="text-white text-2xl font-bold tracking-wide" id="loadingText">Processing Data...</h2>
 </div>
+
 <div id="mappingModal" class="fixed inset-0 bg-slate-900 bg-opacity-75 z-[60] hidden flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden flex flex-col max-h-full fade-in border border-slate-200">
         <div class="p-6 border-b border-slate-200 bg-slate-50 flex justify-between items-center">
@@ -730,8 +731,8 @@ th { position: sticky; top: 0; z-index: 10; }
         },
         exportExcel: () => {
             let wb = XLSX.utils.book_new();
-            let aoa = [["Status","GSTIN","Party","Invoice","Date","Taxable(PR)","Tax(PR)","Taxable(2B)","Tax(2B)","Diff"]];
-            Recon.data.out.forEach(x=>aoa.push([x.st,x.g,x.p,x.i,x.d,x.ptx,x.pt,x.gtx,x.gt,x.dt]));
+            let aoa = [["GST Number","Party Name","Invoice Number","Invoice Date","Tally Taxable Value","Tally CGST","Tally SGST","Tally IGST","GST Taxable Value","GST CGST","GST SGST","GST IGST","Status"]];
+            Recon.data.out.forEach(x=>aoa.push([x.g, x.p, x.i, x.d, x.ptx, x.pcg, x.psg, x.pig, x.gtx, x.gcg, x.gsg, x.gig, x.st]));
             XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aoa), "Recon");
             XLSX.writeFile(wb, "GST_Pro_Recon.xlsx");
         }
